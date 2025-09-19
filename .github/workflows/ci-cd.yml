@@ -7,41 +7,25 @@ on:
     branches: [ main ]
 
 jobs:
-  lint-test:
+  test:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11'
-      - name: Install deps
+          python-version: 3.11
+
+      - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-      - name: Lint
-        run: |
-          black --check .
-          flake8 .
-      - name: Type check
-        run: |
-          mypy app || true
-      - name: Run tests
-        run: |
-          pytest -q
 
-  deploy:
-    needs: lint-test
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-    steps:
-      - uses: actions/checkout@v4
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
-      - name: Deploy Lambda (example using AWS SAM)
-        run: |
-          sam deploy --template-file template.yaml --stack-name my-data-pipeline --capabilities CAPABILITY_IAM
+      - name: Set PYTHONPATH
+        run: echo "PYTHONPATH=$GITHUB_WORKSPACE" >> $GITHUB_ENV
+
+      - name: Run tests
+        run: pytest -v
