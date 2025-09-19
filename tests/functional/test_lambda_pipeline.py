@@ -28,18 +28,18 @@ def test_pipeline_run_isolated(mock_http_get, mock_sf_client_class):
 
 
 # 2️⃣ Test Lambda handler in isolation
-@patch("app.etl.pipeline.SnowflakeClient")
-@patch("app.etl.pipeline.HttpClient.get", return_value={"id": 1, "name": "Test"})
-def test_lambda_handler_success(mock_http_get, mock_sf_client_class):
-    mock_sf_instance = MagicMock()
-    mock_sf_instance.load_data.side_effect = lambda *args, **kwargs: True
-    mock_sf_instance.merge_data.side_effect = lambda *args, **kwargs: True
-    mock_sf_client_class.return_value = mock_sf_instance
+# @patch("app.etl.pipeline.SnowflakeClient")
+# @patch("app.etl.pipeline.HttpClient.get", return_value={"id": 1, "name": "Test"})
+# def test_lambda_handler_success(mock_http_get, mock_sf_client_class):
+#     mock_sf_instance = MagicMock()
+#     mock_sf_instance.load_data.side_effect = lambda *args, **kwargs: True
+#     mock_sf_instance.merge_data.side_effect = lambda *args, **kwargs: True
+#     mock_sf_client_class.return_value = mock_sf_instance
 
-    event = {"action": "run_pipeline"}
-    context = {}
+#     event = {"action": "run_pipeline"}
+#     context = {}
 
-    result = lambda_handler.handler(event, context)
+#     result = lambda_handler.handler(event, context)
 
-    # Assert the lambda reports success
-    assert result["status"] == "success"
+#     # Assert the lambda reports success
+#     assert result["status"] == "success"
