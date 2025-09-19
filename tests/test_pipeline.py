@@ -1,5 +1,5 @@
-import pytest
-from unittest.mock import patch, MagicMock
+#import pytest
+from unittest.mock import patch
 from app.utils import to_json
 from app.etl.pipeline import ETLPipeline
 
