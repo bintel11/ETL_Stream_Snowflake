@@ -63,9 +63,7 @@ class SnowflakeClient:
         on_clause = " AND ".join([f"target.{k} = stage.{k}" for k in key_columns])
         update_clause = ", ".join([f"{col} = stage.{col}" for col in update_columns])
         insert_cols = ", ".join(update_columns + key_columns)
-        insert_vals = ", ".join(
-            [f"stage.{col}" for col in update_columns + key_columns]
-        )
+        insert_vals = ", ".join([f"stage.{col}" for col in update_columns + key_columns])
 
         sql = f"""
         MERGE INTO {target_table} AS target

@@ -1,4 +1,4 @@
-#import pytest
+# import pytest
 from unittest.mock import patch
 from app.etl.pipeline import ETLPipeline
 

@@ -8,9 +8,7 @@ class ETLPipeline:
         self.s3 = S3Client()
         self.snowflake = SnowflakeClient()
 
-    def run_batch(
-        self, local_file: str, s3_key: str, staging_table: str, target_table: str
-    ):
+    def run_batch(self, local_file: str, s3_key: str, staging_table: str, target_table: str):
         """Batch pipeline: upload → load → merge."""
         # 1. Upload raw file to S3
         s3_uri = self.s3.upload_file(local_file, s3_key)
@@ -24,7 +22,7 @@ class ETLPipeline:
         return {"status": "success", "s3_uri": s3_uri}
 
 
-"""
+'''
 # app/etl/pipeline.py
 from typing import Any, Dict, List
 from app.logger import get_logger
@@ -75,8 +73,11 @@ class ETLPipeline:
         return transformed
 
     def load_to_snowflake(self, records: List[Dict[str, Any]], staging_table: str):
-        # For demonstration we do per-row insert (not for high volume). For production, bulk-load to stage then COPY INTO.
-        insert_sql = f"INSERT INTO {staging_table} (id, name, value, ingested_at) VALUES (%(id)s, %(name)s, %(value)s, %(ingested_at)s)"
+        # For demonstration we do per-row insert (not for high volume).
+        # For production, bulk-load to stage then COPY INTO.
+        insert_sql = f"INSERT INTO {staging_table}
+        (id, name, value, ingested_at) VALUES (%(id)s,
+        %(name)s, %(value)s, %(ingested_at)s)"
         cur = self.sf.conn.cursor()
         try:
             for rec in records:
@@ -104,4 +105,4 @@ class ETLPipeline:
             logger.exception("pipeline:failed", extra={"request_id": request_id})
             raise
             
-"""
+'''

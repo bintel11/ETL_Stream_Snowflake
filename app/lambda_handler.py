@@ -31,9 +31,7 @@ def handler(event, context):
     logger.info("lambda:invoked", extra={"event": event})
     try:
         http_client, sf_client = build_clients(cfg)
-        pipeline = ETLPipeline(
-            http_client=http_client, snowflake_client=sf_client, cfg=cfg
-        )
+        pipeline = ETLPipeline(http_client=http_client, snowflake_client=sf_client, cfg=cfg)
         # determine path from event (API Gateway, scheduled, Step Functions input)
         path = event.get("path", cfg.get("DEFAULT_API_PATH", "/data"))
         pipeline.run(path=path)

@@ -35,9 +35,7 @@ class HttpClient:
     ) -> Dict[str, Any]:
         url = f"{self.base_url}/{path.lstrip('/')}"
         try:
-            resp = requests.get(
-                url, params=params, headers=headers, timeout=self.timeout
-            )
+            resp = requests.get(url, params=params, headers=headers, timeout=self.timeout)
             resp.raise_for_status()
             return resp.json()
         except RequestException as e:

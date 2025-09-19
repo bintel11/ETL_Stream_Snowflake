@@ -1,4 +1,3 @@
-
 import pytest
 from app.connectors.snowflake_client import SnowflakeClient
 

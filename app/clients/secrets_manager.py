@@ -22,7 +22,5 @@ class SecretsManager:
                 # binary secret not expected
                 return {}
         except ClientError:
-            logger.exception(
-                "Failed to retrieve secret", extra={"secret_name": secret_name}
-            )
+            logger.exception("Failed to retrieve secret", extra={"secret_name": secret_name})
             raise
