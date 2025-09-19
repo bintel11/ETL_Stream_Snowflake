@@ -22,7 +22,7 @@ class ETLPipeline:
         return {"status": "success", "s3_uri": s3_uri}
 
 
-'''
+"""
 # app/etl/pipeline.py
 from typing import Any, Dict, List
 from app.logger import get_logger
@@ -105,4 +105,4 @@ class ETLPipeline:
             logger.exception("pipeline:failed", extra={"request_id": request_id})
             raise
             
-'''
+"""
