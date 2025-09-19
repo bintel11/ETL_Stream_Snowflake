@@ -2,9 +2,11 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
   pull_request:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
   test:
@@ -24,8 +26,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Set PYTHONPATH
-        run: echo "PYTHONPATH=$GITHUB_WORKSPACE" >> $GITHUB_ENV
-
       - name: Run tests
-        run: pytest -v
+        run: |
+          # Add repo root to PYTHONPATH so 'app' is discoverable
+          PYTHONPATH=$PWD pytest -v
