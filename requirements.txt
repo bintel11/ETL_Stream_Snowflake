@@ -1,0 +1,9 @@
+boto3
+requests
+tenacity
+snowflake-connector-python
+python-json-logger
+pytest
+mypy
+black
+flake8

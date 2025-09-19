@@ -1,0 +1,38 @@
+{
+  "Comment": "Simple Step Function that invokes Lambda and handles retries",
+  "StartAt": "InvokeETL",
+  "States": {
+    "InvokeETL": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "Parameters": {
+        "FunctionName": "arn:aws:lambda:REGION:ACCOUNT:function:my-data-pipeline",
+        "Payload.$": "$"
+      },
+      "Retry": [
+        {
+          "ErrorEquals": ["Lambda.ServiceException", "Lambda.AWSLambdaException", "Lambda.SdkClientException"],
+          "IntervalSeconds": 5,
+          "MaxAttempts": 3,
+          "BackoffRate": 2.0
+        }
+      ],
+      "Catch": [
+        {
+          "ErrorEquals": ["States.ALL"],
+          "Next": "AlertFailure"
+        }
+      ],
+      "End": true
+    },
+    "AlertFailure": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::sns:publish",
+      "Parameters": {
+        "TopicArn": "arn:aws:sns:REGION:ACCOUNT:my-alerts",
+        "Message.$": "$"
+      },
+      "End": true
+    }
+  }
+}

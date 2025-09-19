@@ -1,0 +1,38 @@
+               ┌────────────────────────────┐
+               │     Data Sources (APIs,    │
+               │     Streaming, Batch)      │
+               │   e.g., Salesforce, ATS    │
+               └─────────────┬──────────────┘
+                             │
+                             ▼
+                  ┌───────────────────────┐
+                  │   AWS Lambda (Python  │
+                  │   ETL Pipeline Code)  │
+                  │  - Extract (API calls)│
+                  │  - Transform (OOP)    │
+                  │  - Load (Snowflake)   │
+                  └───────────┬───────────┘
+                              │
+         ┌────────────────────┼──────────────────────┐
+         │                    │                      │
+         ▼                    ▼                      ▼
+┌────────────────┐   ┌─────────────────┐   ┌────────────────────┐
+│ AWS Secrets    │   │ AWS CloudWatch  │   │ AWS S3 (Batch Data)│
+│ Manager        │   │ - Logs (JSON)   │   │ - Staging raw data │
+│ - Credentials  │   │ - Metrics       │   │ - For COPY INTO    │
+└────────────────┘   └─────────────────┘   └────────────────────┘
+                              │
+                              ▼
+                   ┌───────────────────────┐
+                   │   AWS Step Functions  │
+                   │ - Orchestration       │
+                   │ - Retries/Alerts (SNS)│
+                   └───────────┬───────────┘
+                               │
+                               ▼
+                   ┌────────────────────────┐
+                   │   Snowflake Data Cloud │
+                   │ - Staging Table (EL)  │
+                   │ - MERGE to Target (T) │
+                   │ - Analytics Ready Data│
+                   └────────────────────────┘
