@@ -5,6 +5,7 @@ S3 client for uploading and downloading files.
 import boto3
 import os
 
+
 class S3Client:
     def __init__(self):
         self.s3 = boto3.client("s3")

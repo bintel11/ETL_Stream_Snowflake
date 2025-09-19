@@ -7,6 +7,7 @@ from app.logger import get_logger
 
 logger = get_logger(__name__)
 
+
 class SecretsManager:
     def __init__(self, region_name: str = None):
         self.client = boto3.client("secretsmanager", region_name=region_name)
@@ -21,5 +22,7 @@ class SecretsManager:
                 # binary secret not expected
                 return {}
         except ClientError as e:
-            logger.exception("Failed to retrieve secret", extra={"secret_name": secret_name})
+            logger.exception(
+                "Failed to retrieve secret", extra={"secret_name": secret_name}
+            )
             raise

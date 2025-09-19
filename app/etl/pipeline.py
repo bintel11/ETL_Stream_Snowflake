@@ -1,5 +1,3 @@
-
-
 """
 ETL pipeline using S3 + Snowflake.
 """
@@ -7,12 +5,15 @@ ETL pipeline using S3 + Snowflake.
 from app.connectors.s3_client import S3Client
 from app.connectors.snowflake_client import SnowflakeClient
 
+
 class ETLPipeline:
     def __init__(self):
         self.s3 = S3Client()
         self.snowflake = SnowflakeClient()
 
-    def run_batch(self, local_file: str, s3_key: str, staging_table: str, target_table: str):
+    def run_batch(
+        self, local_file: str, s3_key: str, staging_table: str, target_table: str
+    ):
         """Batch pipeline: upload → load → merge."""
         # 1. Upload raw file to S3
         s3_uri = self.s3.upload_file(local_file, s3_key)
@@ -26,9 +27,7 @@ class ETLPipeline:
         return {"status": "success", "s3_uri": s3_uri}
 
 
-
-
-'''
+"""
 # app/etl/pipeline.py
 from typing import Any, Dict, List
 from app.logger import get_logger
@@ -108,4 +107,4 @@ class ETLPipeline:
             logger.exception("pipeline:failed", extra={"request_id": request_id})
             raise
             
-'''
+"""

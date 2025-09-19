@@ -2,6 +2,7 @@ import pytest
 from unittest.mock import patch
 from app.etl.pipeline import ETLPipeline
 
+
 @patch("app.clients.http_client.HttpClient.get", return_value={"id": 1})
 @patch("app.connectors.snowflake_client.SnowflakeClient.load_data", return_value=True)
 @patch("app.connectors.snowflake_client.SnowflakeClient.merge_data", return_value=True)

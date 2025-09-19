@@ -3,6 +3,7 @@ import os
 from typing import Dict, Any
 from .clients.secrets_manager import SecretsManager
 
+
 def load_config() -> Dict[str, Any]:
     env = os.getenv("ENV", "dev")
     region = os.getenv("AWS_REGION", None)
