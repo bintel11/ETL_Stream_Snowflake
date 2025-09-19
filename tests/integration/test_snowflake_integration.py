@@ -1,4 +1,4 @@
-import os
+#import os
 import pytest
 from app.connectors.snowflake_client import SnowflakeClient
 
