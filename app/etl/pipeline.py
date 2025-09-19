@@ -1,7 +1,4 @@
-"""
-ETL pipeline using S3 + Snowflake.
-"""
-
+# ETL pipeline using S3 + Snowflake.
 from app.connectors.s3_client import S3Client
 from app.connectors.snowflake_client import SnowflakeClient
 

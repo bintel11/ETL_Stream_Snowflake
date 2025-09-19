@@ -1,5 +1,5 @@
 # app/lambda_handler.py
-# import os
+
 import json
 from app.config import load_config
 from app.logger import get_logger
