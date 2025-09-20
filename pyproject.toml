@@ -1,3 +1,19 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "etl-stream-snowflake"
+version = "0.1.0"
+description = "ETL pipeline for streaming data into Snowflake"
+authors = [{ name = "Your Name", email = "you@example.com" }]
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "pytest",
+    "python-json-logger",
+]
+
 [tool.black]
 line-length = 120
 target-version = ['py310']
@@ -10,3 +26,12 @@ exclude = '''
   | dist
 )/
 '''
+
+[tool.pytest.ini_options]
+addopts = "-ra"
+testpaths = ["tests"]
+
+markers = [
+    "integration: mark a test as an integration test",
+]
+
